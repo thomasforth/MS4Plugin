@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
  
-<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-    id="com.moodstocks.phonegap"
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	id="com.moodstocks.phonegap"
     version="0.1.0">
     <name>MS4Plugin</name>
     <description>Moodstocks Phonegap Plugin</description>
@@ -17,12 +18,10 @@
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="Calendar">
+            <feature name="MS4Plugin">
                 <param name="android-package" value="com.moodstocks.phonegap.plugin.MS4Plugin"/>
             </feature>
         </config-file>
- 
-        <source-file src="src/android/MS4Plugin.java" target-dir="src/com/moodstocks/phonegap/plugin" /> 
 		
 		<!-- uses permission & feature -->
         <config-file target="AndroidManifest.xml" parent="/manifest">
@@ -37,15 +36,9 @@
                 android:required="false" />
         </config-file>
 
-        <!-- activity -->
-        <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity
-                android:name="com.moodstocks.phonegap.plugin.MoodstocksScanActivity"
-                android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-            </activity>
-        </config-file>
-		
-		<!-- source files -->
+		<!-- source files -->		 
+        <source-file src="src/android/MS4Plugin.java" 
+			target-dir="src/com/moodstocks/phonegap/plugin" /> 
         <source-file src="src/android/AutoScanFragment.java"
             target-dir="src/com/moodstocks/phonegap/plugin" />
         <source-file src="src/android/CordovaScanFragment.java"
