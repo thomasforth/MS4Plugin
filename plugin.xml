@@ -9,7 +9,6 @@
     <author>Thomas Forth, imactivate</author>
 	<license>MIT</license>
  
-	<dependency id="org.apache.cordova.camera" url="https://github.com/apache/cordova-plugin-camera.git"  />
  
     <js-module src="www/MS4Plugin.js" name="MS4Plugin">
         <clobbers target="MS4Plugin" />
