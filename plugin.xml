@@ -48,20 +48,13 @@
         </config-file>
 		
 		<!-- source files -->		 
-        <source-file src="src/android/MS4Plugin.java" 
-			target-dir="src/com/moodstocks/phonegap/plugin" /> 
-        <source-file src="src/android/AutoScanFragment.java"
-            target-dir="src/com/moodstocks/phonegap/plugin" />
-        <source-file src="src/android/CordovaScanFragment.java"
-            target-dir="src/com/moodstocks/phonegap/plugin" />
-        <source-file src="src/android/ManualScanFragment.java"
-            target-dir="src/com/moodstocks/phonegap/plugin" />
-        <source-file src="src/android/activity_main.xml"
-            target-dir="res/layout" />      
-        <source-file src="src/android/fragment_cordova.xml"
-            target-dir="res/layout" />      
-        <source-file src="src/android/fragment_scan.xml"
-            target-dir="res/layout" />      
+        <source-file src="src/android/MS4Plugin.java" target-dir="src/com/moodstocks/phonegap/plugin" /> 
+        <source-file src="src/android/AutoScanFragment.java" target-dir="src/com/moodstocks/phonegap/plugin" />
+        <source-file src="src/android/CordovaScanFragment.java" target-dir="src/com/moodstocks/phonegap/plugin" />
+        <source-file src="src/android/ManualScanFragment.java" target-dir="src/com/moodstocks/phonegap/plugin" />
+        <source-file src="src/android/activity_main.xml" target-dir="res/layout" />      
+        <source-file src="src/android/fragment_cordova.xml" target-dir="res/layout" />      
+        <source-file src="src/android/fragment_scan.xml" target-dir="res/layout" />      
 
      </platform>          
 </plugin>
