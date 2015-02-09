@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.moodstocks.phonegap"
+    version="1.0.0">
+    <name>Moodstocks SDK</name>
+    <description>Moodstocks PhoneGap plugins helps you to integrate Moodstocks
+        SDK in your PhoneGap application. The Moodstocks SDK provides a scanner
+        for mobile devices. It recognizes both barcodes and images. Scanning
+        operates on the client-side which lets you create nice augmented reality
+        overlays. Also it even works off-line thanks to a built-in, easy-to-use
+        on-device image signatures synchronization. (http://www.moodstocks.com/)
+    </description>
+    <author>Moodstocks</author>
+    <license>MIT</license>
+    <keywords>moodstocks, image-recognition, ios, android, augmented-reality,
+        barcode, qrcode</keywords>
+
+    <js-module src="www/MoodstocksPlugin.js" name="MoodstocksPlugin">
+        <clobbers target="MoodstocksPlugin" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="MoodstocksPlugin">
+                <param name="ios-package" value="MoodstocksPlugin" />
+            </feature>
+        </config-file>
+
+        <!-- header & source files -->
+        <header-file src="src/ios/MoodstocksPlugin.h" />
+        <source-file src="src/ios/MoodstocksPlugin.m" />
+        <header-file src="src/ios/MSHandler.h" />
+        <source-file src="src/ios/MSHandler.m" />
+        <header-file src="src/ios/MSScannerController.h" />
+        <source-file src="src/ios/MSScannerController.m" />
+        <header-file src="src/ios/MoodstocksAPI.h" />
+
+        <!-- system frameworks -->
+        <framework src="CoreMedia.framework" />
+        <framework src="AVFoundation.framework" />
+        <framework src="CoreVideo.framework" />
+        <framework src="QuartzCore.framework" />
+    </platform>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="MoodstocksPlugin">
+                <param name="android-package" value="com.moodstocks.phonegap.plugin.MoodstocksPlugin" />
+            </feature>
+        </config-file>
+
+        <!-- uses permission & feature -->
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-feature
+                android:name="android.hardware.camera"
+                android:required="false" />
+            <uses-feature
+                android:name="android.hardware.camera.any"
+                android:required="false" />
+        </config-file>
+
+        <!-- activity -->
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                android:name="com.moodstocks.phonegap.plugin.MoodstocksScanActivity"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            </activity>
+        </config-file>
+
+        <!-- source files -->
+        <source-file src="src/android/MoodstocksPlugin.java"
+            target-dir="src/com/moodstocks/phonegap/plugin" />
+        <source-file src="src/android/MoodstocksScanActivity.java"
+            target-dir="src/com/moodstocks/phonegap/plugin" />
+        <source-file src="src/android/MoodstocksWebView.java"
+            target-dir="src/com/moodstocks/phonegap/plugin" />
+        <source-file src="src/android/scan.xml"
+            target-dir="res/layout" />
+
+    </platform>
+
+</plugin>

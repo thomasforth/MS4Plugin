@@ -2,11 +2,11 @@
  
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-	id="com.moodstocks.phonegap.plugin"
-    version="0.1.0">
+	id="com.moodstocks.phonegap"
+    version="1.0.0">
     <name>MS4Plugin</name>
     <description>Moodstocks Phonegap Plugin</description>
-    <author>Thomas Forth, imactivate</author>
+    <author>imactivate</author>
 	<license>MIT</license>
  
 	<dependency id="org.apache.cordova.camera" url="https://github.com/apache/cordova-plugin-camera.git"  />
@@ -35,7 +35,16 @@
                 android:name="android.hardware.camera.any"
                 android:required="false" />
         </config-file>
-
+		
+        <!-- activity -->
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                android:name="com.moodstocks.phonegap.plugin.MoodstocksScanActivity"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            </activity>
+        </config-file>
+		
 		<!-- source files -->		 
         <source-file src="src/android/MS4Plugin.java" 
 			target-dir="src/com/moodstocks/phonegap/plugin" /> 
