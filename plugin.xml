@@ -8,16 +8,18 @@
     <description>Moodstocks Phonegap Plugin</description>
     <author>imactivate</author>
 	<license>MIT</license>
- 
+    <keywords>moodstocks, image-recognition, ios, android, augmented-reality, barcode, qrcode</keywords>
 	<dependency id="org.apache.cordova.camera" url="https://github.com/apache/cordova-plugin-camera.git"  />
  
-    <js-module src="www/MS4Plugin.js" name="MS4Plugin">
-        <clobbers target="MS4Plugin" />
-    </js-module>
+
  
     <!-- android -->
     <platform name="android">
-        <config-file target="res/xml/config.xml" parent="/*">
+        <js-module src="www/MS4Plugin.js" name="MS4Plugin">
+			<clobbers target="MS4Plugin" />
+		</js-module>
+		
+		<config-file target="res/xml/config.xml" parent="/*">
             <feature name="MS4Plugin">
                 <param name="android-package" value="com.moodstocks.phonegap.plugin.MS4Plugin"/>
             </feature>
