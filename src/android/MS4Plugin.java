@@ -1,3 +1,26 @@
+/*
+ * Copyright (c) 2015 Moodstocks SAS and imactivate
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package com.moodstocks.phonegap.plugin;
 
 import org.apache.cordova.CallbackContext;
@@ -13,13 +36,13 @@ import android.util.Log;
 
 public class MS4Plugin extends CordovaPlugin {
 	// scanTypes and scanFlags are public so they can be used in ManualScanFragment and AutoScanFramgent classes
-	// they are initially set to default values and changed
+	// they are initially set to default values and changed later
 	public static int scanFormats = Result.Type.IMAGE | Result.Type.QRCODE | Result.Type.EAN13 | Result.Type.EAN8 | Result.Type.DATAMATRIX;
 	public static boolean noPartials = true;
 	public static boolean smallTarget = true;
 	public static boolean useDeviceRotation = true;
 	
-	// Cordova Pluging Methods
+	// Cordova Plugin Methods
 	public static final String TEST_MESSAGE = "testMessage";	
 	public static final String RECOGNISE_PHOTO = "recognisePhoto";
 	public static final String RECOGNISE_PHOTO_STRING = "recognisePhotoString";
@@ -33,7 +56,7 @@ public class MS4Plugin extends CordovaPlugin {
 	
 	/* CallbackContexts are stored in a public variable so they can be used later in this class. */
 	/* This is a different pattern from previous versions of the plugin which used startActivityForResult. */
-	/* That pattern does not work well with Fragments. This one does. */
+	/* The startActivityForResult method does not work with Fragments. This pattern does. */
 	private static CallbackContext scanCallbackContext = null;
 	private static CallbackContext syncCallbackContext = null;
 	private static CallbackContext recognisePhotoCallbackContext = null;
@@ -92,7 +115,7 @@ public class MS4Plugin extends CordovaPlugin {
 			}
 			if (action.equals(RECOGNISE_PHOTO_STRING)){
 				recognisePhotoCallbackContext = callbackContext;
-				// The phonegap camera plugin passes me a correctly rotated and scaled image as a string
+				// The phonegap camera plugin passes me a correctly rotated and scaled image as a Base64 string
 				((MainActivity) this.cordova.getActivity()).processCustomImageString(args.getJSONObject(0).optString("photoString").toString());
 		    }	
 			if (action.equals(START_SCAN)){
