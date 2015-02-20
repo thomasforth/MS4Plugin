@@ -2,7 +2,7 @@
 
 A third-party Phonegap plugin that implements the Moodstocks v4 SDK for Android. It is developed by Thomas Forth at [imactivate](http://www.imactivate.com/) and tested on Phonegap v3.1, on Windows and Mac, in Eclipse. Small changes in installation procedure may be required with newer version of Phonegap but we foresee no major compatibility issues.
 
-Until I have a few installation guide [watch this video](https://www.youtube.com/watch?v=TgIBX6r1nl4).
+Until I have a complete installation guide [watch this video](https://www.youtube.com/watch?v=TgIBX6r1nl4).
 
 #### Installation
 Installation is via the Phonegap CLI as with the v3.7 plugin but requires ** slightly different steps** later in the installation.
