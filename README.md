@@ -1,6 +1,6 @@
 # MS4Plugin
 
-A third-party Phonegap plugin that implements the Moodstocks v4 SDK for Android. It is developed by Thomas Forth at [imactivate](http://www.imactivate.com/).
+A third-party Phonegap plugin that implements the Moodstocks v4 SDK for Android. It is developed by Thomas Forth at [imactivate](http://www.imactivate.com/). In addition to this concise installation guide a walk-through are provided at [imactivate.com/moodstocksv4](http://www.imactivate.com/moodstocksv4).
 
 #### Installation
 Installation is via the Phonegap CLI **but requires additional steps** similar to those in previous versions.
@@ -12,11 +12,10 @@ Installation is via the Phonegap CLI **but requires additional steps** similar t
 5. In `AndroidManifest.xml` the `android:name="<name>"` property of the main activity to `android:name="MainActivity"`.
 6. (Depending on the phonegap version you use some or all of these changes to `AndroidManifest.xml` may not be required). The `android:debuggable="true"` property needs removing. The `android:minSdkVersion="10"` property needs changing to `android:minSdkVersion="11"`. Optionally, replace `android:theme="@android:style/Theme.Black.NoTitleBar"` with `android:theme="@android:style/Theme.Holo.NoActionBar`.
 
+##### Installing the Demo
 Your project should now compile and install. Additionally you may want to install the Phonegap v4 Demo App.
 
-7. In `assets/www/` replace `index.html` with the `index.html` in the [Moodstocks v4 Phonegap Demo](https://github.com/thomasforth/MS4Plugin/) and add the content of the Demo's `img` folder to `assets/www/img`.
-
-A walk-through and examples are provided at [imactivate.com/moodstocksv4](http://www.imactivate.com/moodstocksv4).
+In `assets/www/` replace `index.html` with the `index.html` in the [Moodstocks v4 Phonegap Demo](https://github.com/thomasforth/MS4Plugin/) and add the content of the Demo's `img` folder to `assets/www/img`.
 
 #### Compatibility
 At the Phonegap level the API is largely unchanged from the [Moodstocks v3.7 phonegap plugin](https://github.com/Moodstocks/moodstocks-phonegap-plugin) and porting should be straightforward. This release drops support for Android 2.x. Users who require this should use the [Moodstocks v3.7 phonegap plugin](https://github.com/Moodstocks/moodstocks-phonegap-plugin). Developed with Phonegap 3.1, in Eclipse, on Windows 8.1. Android Studio is not supported; Phonegap is the barrier to this.
