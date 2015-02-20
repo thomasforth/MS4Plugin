@@ -33,8 +33,8 @@ import com.moodstocks.phonegap.plugin.ManualScanFragment;
 public class MainActivity extends Activity implements Scanner.SyncListener{
 
     // Moodstocks API key/secret pair
-    private static final String API_KEY = "ks495yee1mkuuhzipzms";
-    private static final String API_SECRET = "zGcHPj3xMdrpDqQN";
+    private static final String API_KEY = "_yourKey_";
+    private static final String API_SECRET = "_yourSecret_";
     
     private boolean compatible = false;
     private Scanner scanner;

@@ -1,0 +1,409 @@
+<!doctype html>
+<!--  * Copyright (c) 2015 Moodstocks SAS and imactivate
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
+
+<head>
+	<title>Moodstocks v4 SDK for phonegap demo by imactivate</title>
+	<!-- MS4Plugin.js is loaded by the Phonegap plugin manager. We don't need to worry about it -->
+	<!-- cordova.js is only loaded on mobile so we can do desktop debugging -->
+	<script>
+		if (navigator.userAgent.indexOf("Android") >= 0) {
+			document.write('<script type="text/javascript" src="cordova.js"><\/script>');
+		}
+	</script>
+	<style>
+		html,
+		body {
+			font-family: sans-serif;
+			background-color: transparent;
+			padding: 0;
+			margin: 0;
+		}
+		
+		#moodstocksLogo {
+			padding: 0;
+			margin: 0;
+			width: 100%;
+			background-color: #0e725f;
+			text-align: center;
+		}
+		
+		#moodstocksLogo img {
+			max-height: 18%;
+			width: 55%;
+			height: auto;
+			padding: 0.5em;
+		}
+		
+		#actionHolder,
+		#statusHolder {
+			bottom: 0;
+			padding: 0;
+			margin: 0;
+			width: 100%;
+			border-spacing: 0;
+		}
+		
+		#actionHolder {
+			border-spacing: 0.5em;
+		}
+		
+		.bigButton {
+			padding: 2em 0em 2em 0em;
+			text-align: center;
+			color: white;
+			font-size: 1em;
+			width: 45%;
+			background-color: #149f84;
+			border-radius: 0.5em;
+			-webkit-transition: all 0.8s;
+		}
+		
+		#cameraStatus,
+		#syncStatus,
+		#bundleStatus {
+			color: white;
+			text-align: center;
+			font-size: 1em;
+			padding: 0.6em 0em 0.6em 0em;
+			margin: 0;
+			width: 33.333333333333333%;
+			display: inline-block;
+			background-color: orange;
+			transition: all 0.5s;
+		}
+		
+		.smallButton {
+			-webkit-transition: all 0.8s;
+			-webkit-transform: scale(0);
+			padding: 1em 0em 1em 0em;
+		}
+		
+		#statusAndControl {
+			width: 100%;
+			position: fixed;
+			bottom: 0;
+		}
+		
+		#scanControlAndResults {
+			width: 100%;
+			color: white;
+			border-spacing: 0.5em;
+		}
+		
+		#scanControlAndResults td {
+			background-color: #149f84;
+			text-align: center;
+			width: 33.3333333333333%;
+			border-radius: 0.5em;
+		}
+		
+		#settings {
+			box-shadow: 0px 0px 50px #000;
+			padding: 5%;
+			border: 8px solid #0e725f;
+			border-radius: 2em;
+			color: white;
+			position: absolute;
+			width: 70%;
+			left: 10%;
+			top: 10%;
+			background-color: #149f84;
+			-webkit-transform: scale(0);
+			transition: all 0.5s;
+			line-height: 150%;
+		}
+		
+		#close {
+			position: absolute;
+			height: 40px;
+			right: 10px;
+			top: 10px;
+		}
+		
+		input {
+			-webkit-transform: scale(2);
+		}
+		
+		label {
+			display: block;
+			padding: 0.2em;
+		}
+	</style>
+</head>
+
+<body onload="init()">
+	<div id="moodstocksLogo" onclick="testMessaging()">
+		<img src="img/m_logo.svg" />
+	</div>
+	<table id="actionHolder">
+		<tr>
+			<td class="bigButton" onclick="startScan('auto')" id=autoScanButton>Auto Scan</td>
+			<td class="bigButton" onclick="startScan('manual')" id=manualScanButton>Manual Scan</td>
+		</tr>
+		<tr>
+			<td class="bigButton" onclick="photoAlbum64()" id=albumScanButton>Album Scan</td>
+			<td class="bigButton" onclick="openSettings()" id=settingsButton>Settings</td>
+		</tr>
+	</table>
+	<div id="statusAndControl">
+		<table id="scanControlAndResults">
+			<tr>
+				<td class="smallButton" id="stopScanButton" onclick="stopScan()">Stop Scanning</td>
+				<td class="smallButton" id="pauseOrResumeScanButton" onclick="pauseScan()">Pause Scanning</td>
+				<td class="smallButton" id="tapToScanButton" onclick="tapToScan()">Tap To Scan</td>
+			</tr>
+		</table>
+		<table id="statusHolder">
+			<tr>
+				<td id="cameraStatus">Camera</td>
+				<td id="syncStatus">Sync</td>
+				<td id="bundleStatus">Bundle</td>
+			</tr>
+		</table>
+	</div>
+	<div id="settings">
+		<img id="close" onclick="closeSettings()" src="img/close.png" />
+		<h4>Scan Options</h4>
+		<label>
+			<input id="imageCB" type="checkbox" checked>&nbsp;&nbsp;Image</label>
+		<label>
+			<input id="EAN8CB" type="checkbox" checked>&nbsp;&nbsp;EAN8 Barcode</label>
+		<label>
+			<input id="EAN13CB" type="checkbox" checked>&nbsp;&nbsp;EAN13 Barcode</label>
+		<label>
+			<input id="QRCB" type="checkbox" checked>&nbsp;&nbsp;QR Code</label>
+		<label>
+			<input id="DMTXCB" type="checkbox" checked>&nbsp;&nbsp;Datamatrix</label>
+		<h4>Scan Flags</h4>
+		<label>
+			<input id="deviceOrientationCB" type="checkbox" checked>&nbsp;&nbsp;Device Orientation</label>
+		<label>
+			<input id="smallTargetCB" value="QR Code" type="checkbox" checked>&nbsp;&nbsp;Small Target Support</label>
+		<label>
+			<input id="noPartialssCB" value="Datamatrix" type="checkbox" checked>&nbsp;&nbsp;No Partial Matching</label>
+	</div>
+	<script>
+		scanningFlag = false;
+
+		function onBackKeyDown(evt) {
+			if (scanningFlag == true) {
+				evt.preventDefault();
+				evt.stopPropagation();
+				stopScan();
+			}
+		}
+
+		function testMessaging() {
+			MS4Plugin.testMessage("hello world!", messageSuccess, messageFailure);
+		}
+
+		function messageSuccess(arg) {
+			alert(arg);
+		}
+
+		function messageFailure() {}
+
+		function init() {
+			MS4Plugin.open(openSuccess, openFail, 'MS4Tom.bundle');
+			MS4Plugin.sync(syncSuccess, syncFail);
+		}
+
+		function openSettings() {
+			document.getElementById('settings').style.webkitTransform = "scale(1)";
+		}
+
+		function closeSettings() {
+			document.getElementById('settings').style.webkitTransform = "scale(0)";
+		}
+
+		function openSuccess(bundleLoaded) {
+			if (bundleLoaded == true) {
+				document.getElementById('bundleStatus').innerHTML = "Bundle<br />(OK)"
+				document.getElementById('bundleStatus').style.backgroundColor = "#0e725f";
+			} else {
+				document.getElementById('bundleStatus').innerHTML = "Bundle<br />(none )"
+			}
+			document.getElementById('cameraStatus').innerHTML = "Camera<br />(OK)"
+			document.getElementById('cameraStatus').style.backgroundColor = "#0e725f";
+		}
+
+		function openFail() {
+			document.getElementById('cameraStatus').innerHTML = "Camera<br />(error)";
+			document.getElementById('cameraStatus').style.backgroundColor = "red";
+			document.getElementById('bundleStatus').innerHTML = "Camera<br />(error)"
+			document.getElementById('bundleStatus').style.backgroundColor = "red";
+		}
+
+		function syncSuccess(count) {
+			console.log(count + " images successfully synced");
+			document.getElementById('syncStatus').innerHTML = "Sync<br />(OK - " + count + ")";
+			document.getElementById('syncStatus').style.backgroundColor = "#0e725f";
+		}
+
+		function syncFail() {
+			document.getElementById('syncStatus').innerHTML = "Sync<br />(error)";
+			document.getElementById('syncStatus').style.backgroundColor = "red";
+		}
+
+		function photoAlbum64() {
+			// Retrieve image from specified source, scale, and convert it to a Base64 String.
+			navigator.camera.getPicture(grabPhotoSuccess, grabPhotoFail, {
+				quality: 50,
+				destinationType: Camera.DestinationType.DATA_URL,
+				sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+				targetWidth: 800,
+				targetHeight: 800
+			});
+		}
+
+		function startScan(scanType) {
+			// Intercept phonegap backbutton intercepts during scanning
+			document.addEventListener("backbutton", onBackKeyDown, false);
+
+			// Reset pauseScan button as scanning starts on load
+			document.getElementById("pauseOrResumeScanButton").innerHTML = "Pause Scanning";
+			document.getElementById("pauseOrResumeScanButton").onclick = pauseScan;
+
+			document.getElementById("stopScanButton").style.webkitTransform = "scale(1)";
+			document.getElementById("pauseOrResumeScanButton").style.webkitTransform = "scale(1)";
+			if (scanType == "manual") {
+				document.getElementById("tapToScanButton").style.webkitTransform = "scale(1)";
+				document.getElementById("pauseOrResumeScanButton").style.webkitTransform = "scale(0)";
+			} else {
+				//default to scanType = 'auto'
+				document.getElementById("tapToScanButton").style.webkitTransform = "scale(0)";
+				document.getElementById("pauseOrResumeScanButton").style.webkitTransform = "scale(1)";
+			}
+
+			scanningFlag = true;
+			hideBigButtons();
+
+			scanOptions = {
+				"scanType": scanType,
+				"image": document.getElementById("imageCB").checked,
+				"ean8": document.getElementById("EAN8CB").checked,
+				"ean13": document.getElementById("EAN13CB").checked,
+				"qrcode": document.getElementById("QRCB").checked,
+				"dmtx": document.getElementById("DMTXCB").checked
+			}
+			scanFlags = {
+				"useDeviceOrientation": document.getElementById("deviceOrientationCB").checked,
+				"noPartialMatching": document.getElementById("smallTargetCB").checked,
+				"smallTargetSupport": document.getElementById("noPartialssCB").checked
+			}
+
+			MS4Plugin.scan(scanSuccess, scanFailure, scanOptions, scanFlags);
+
+		}
+
+		function scanSuccess(result) {
+			alert(result);
+
+			// in Moodstocks 4 a scan success pauses the scanner
+			// this lets us resume it
+			document.getElementById("pauseOrResumeScanButton").innerHTML = "Resume Scanning";
+			document.getElementById("pauseOrResumeScanButton").onclick = resumeScan;
+		}
+
+		function scanFailure() {}
+
+		function stopScan() {
+			// Remove phonegap backbutton intercepts
+			document.removeEventListener("backbutton", onBackKeyDown);
+			scanningFlag = false;
+			showBigButtons();
+
+			MS4Plugin.dismiss(dismissSuccess, dismissFail);
+		}
+
+		function dismissSuccess() {}
+
+		function dismissFail() {}
+
+		function pauseScan() {
+			MS4Plugin.pause(pauseSuccess, pauseFail);
+
+			// Reset resumeScan button
+			document.getElementById("pauseOrResumeScanButton").innerHTML = "Resume Scanning";
+			document.getElementById("pauseOrResumeScanButton").onclick = resumeScan;
+		}
+
+		function pauseSuccess() {}
+
+		function pauseFail() {}
+
+		function resumeScan() {
+			MS4Plugin.resume(resumeSuccess, resumeFail);
+
+			document.getElementById("pauseOrResumeScanButton").innerHTML = "Pause Scanning";
+			document.getElementById("pauseOrResumeScanButton").onclick = pauseScan;
+		}
+
+		function resumeSuccess() {}
+
+		function resumeFail() {}
+
+		function tapToScan() {
+			MS4Plugin.tapToScan(tapSuccess, tapFail);
+		}
+
+		function tapSuccess() {}
+
+		function tapFail() {}
+
+		function grabPhotoSuccess(photoAsString) {
+			MS4Plugin.recognisePhotoBase64(recognisePhotoSuccess, recognisePhotoFail, photoAsString);
+		}
+
+		function grabPhotoFail() {
+			alert("Something went wrong grabbing a photo from your albums");
+		}
+
+		function recognisePhotoSuccess(result) {
+			alert(result);
+		}
+
+		function recognisePhotoFail(error) {
+			alert(error);
+		}
+
+		function hideBigButtons() {
+			document.getElementById("autoScanButton").style.webkitTransform = "scale(0)";
+			document.getElementById("manualScanButton").style.webkitTransform = "scale(0)";
+			document.getElementById("albumScanButton").style.webkitTransform = "scale(0)";
+			document.getElementById("settingsButton").style.webkitTransform = "scale(0)";
+		}
+
+		function showBigButtons() {
+			document.getElementById("autoScanButton").style.webkitTransform = "scale(1)";
+			document.getElementById("manualScanButton").style.webkitTransform = "scale(1)";
+			document.getElementById("albumScanButton").style.webkitTransform = "scale(1)";
+			document.getElementById("settingsButton").style.webkitTransform = "scale(1)";
+
+			document.getElementById("stopScanButton").style.webkitTransform = "scale(0)";
+			document.getElementById("pauseOrResumeScanButton").style.webkitTransform = "scale(0)";
+			document.getElementById("tapToScanButton").style.webkitTransform = "scale(0)";
+		}
+	</script>
+</body>
+
+</html>

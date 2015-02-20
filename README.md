@@ -3,11 +3,18 @@
 A third-party Phonegap plugin that implements the Moodstocks v4 SDK for Android. It is developed by Thomas Forth at [imactivate](http://www.imactivate.com/).
 
 #### Installation
-Installation is via the Phonegap CLI **but requires additional steps**.
+Installation is via the Phonegap CLI **but requires additional steps** similar to those in previous versions.
 
 1. The native-code portion of the Moodstocks v4.x SDK (Eclipse) needs [downloading](https://moodstocks.com/downloads/) and adding to the project.
 2. The MainActivity.java class needs moving to the `your.package.name` package you chose when creating your project using the Phonegap CLI.
-3. All references to `com.imactivate.MS4TOM` need changing to `your.package.name`. This includes in the `AndroidManifest.xml` and in each Java file including `import com.imactivate.MS4TOM.R`.
+3. Replace the `_yourKey_` and `_yourSecret_` placedholders in MainActivity.java with your Moodstocks key and secret.
+4. All references to `com.imactivate.MS4TOM` need changing to `your.package.name`. This includes in the `AndroidManifest.xml` and in each Java file including `import com.imactivate.MS4TOM.R`.
+5. In `AndroidManifest.xml` the `android:name="<name>"` property of the main activity to `android:name="MainActivity"`.
+6. (Depending on the phonegap version you use some or all of these changes to `AndroidManifest.xml` may not be required). The `android:debuggable="true"` property needs removing. The `android:minSdkVersion="10"` property needs changing to `android:minSdkVersion="11"`. Optionally, replace `android:theme="@android:style/Theme.Black.NoTitleBar"` with `android:theme="@android:style/Theme.Holo.NoActionBar`.
+
+Your project should now compile and install. Additionally you may want to install the Phonegap v4 Demo App.
+
+7. In `assets/www/` replace `index.html` with the `index.html` in the [Moodstocks v4 Phonegap Demo](https://github.com/thomasforth/MS4Plugin/) and add the content of the Demo's `img` folder to `assets/www/img`.
 
 A walk-through and examples are provided at [imactivate.com/moodstocksv4](http://www.imactivate.com/moodstocksv4).
 
