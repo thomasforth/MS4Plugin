@@ -1,11 +1,11 @@
 # MS4Plugin
 
-A third-party Phonegap plugin that implements the Moodstocks v4 SDK for Android. It is developed by Thomas Forth at [imactivate](http://www.imactivate.com/). 
+A third-party Phonegap plugin that implements the Moodstocks v4 SDK for Android. It is developed by Thomas Forth at [imactivate](http://www.imactivate.com/) and tested on Phonegap v3.1, on Windows and Mac, in Eclipse. Small changes in installation procedure may be required with newer version of Phonegap but we foresee no major compatibility issues.
 
 Until I have a few installation guide [watch this video](https://www.youtube.com/watch?v=TgIBX6r1nl4).
 
 #### Installation
-Installation is via the Phonegap CLI **but requires additional steps** similar to those in previous versions.
+Installation is via the Phonegap CLI as with the v3.7 plugin but requires ** slightly different steps** later in the installation.
 
 1. The native-code portion of the Moodstocks v4.x SDK (Eclipse) needs [downloading](https://moodstocks.com/downloads/) and adding to the project.
 2. The MainActivity.java class needs moving to the `your.package.name` package you chose when creating your project using the Phonegap CLI.
