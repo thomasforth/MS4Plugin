@@ -13,6 +13,7 @@ Installation is via the Phonegap CLI as with the v3.7 plugin but requires **slig
 4. All references to `com.imactivate.MS4TOM` need changing to `your.package.name`. This includes in the `AndroidManifest.xml` and in each Java file including `import com.imactivate.MS4TOM.R`.
 5. In `AndroidManifest.xml` the `android:name="<name>"` property of the main activity to `android:name="MainActivity"`.
 6. (Depending on the phonegap version you use some or all of these changes to `AndroidManifest.xml` may not be required). The `android:debuggable="true"` property needs removing. The `android:minSdkVersion="10"` property needs changing to `android:minSdkVersion="11"`. Optionally, replace `android:theme="@android:style/Theme.Black.NoTitleBar"` with `android:theme="@android:style/Theme.Holo.NoActionBar"`.
+7. As of 2015/04/15 you may encounter a problem with the camera plugin dependency. This is details below.
 
 ##### Installing the Demo
 Your project should now compile and install. Additionally you may want to install the Phonegap v4 Demo App.
@@ -25,6 +26,9 @@ At the Phonegap level the API is largely unchanged from the [Moodstocks v3.7 pho
 The `scanOptions` object now requires a `scanType` to be defined. This can be either `auto` or `manual`. Both use cases are included in the demo app. Bundle loading is supported but not required. A partial implementation is included in the demo app but not activated. Camera roll recognition is supported by a completely new function and demonstrated in the demo app.
 
 This release drops support for Android 2.x. Users who require this should use the [Moodstocks v3.7 phonegap plugin](https://github.com/Moodstocks/moodstocks-phonegap-plugin). Developed with Phonegap 3.1, in Eclipse, on Windows 8.1. Android Studio is not supported; Phonegap is the barrier to this.
+
+#### Camera issues
+On 2015/04/15 the package id of the default cordova camera plugin changed from org.apache.cordova.camera to cordova-plugin-camera. We have updated our plugin. If you encounter problems you may be able to fix them by ensuring the following.
 
 #### Major architecture changes
 Separate tasks for scanning and the main UI have been replaced with a single task containing multiple fragments -- one for Manual Scanning, one for Automatic Scanning, and one for the phonegap webview. The main task contains the Moodstocks Scanner object and handles synchronisation. The phonegap webview is loaded on application launch and scanner fragments are loaded when required and destroyed when closed.
