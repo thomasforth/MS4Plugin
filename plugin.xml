@@ -10,7 +10,7 @@
 	<license>MIT</license>
     <keywords>moodstocks, image-recognition, ios, android, augmented-reality, barcode, qrcode</keywords>
 	
-	<dependency id="org.apache.cordova.camera" url="https://github.com/apache/cordova-plugin-camera.git"  />
+	<dependency id="cordova-plugin-camera" url="https://github.com/apache/cordova-plugin-camera.git"  />
  
 	<js-module src="www/MS4Plugin.js" name="MS4Plugin">
 		<clobbers target="MS4Plugin" />
