@@ -23,6 +23,11 @@
 
 package com.moodstocks.phonegap.plugin;
 
+import java.io.ByteArrayOutputStream;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -31,6 +36,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
@@ -38,7 +44,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.imactivate.ms4tom.R;
+import com.imactivate.example.R;
 import com.moodstocks.android.ManualScannerSession;
 import com.moodstocks.android.MoodstocksError;
 import com.moodstocks.android.Result;
@@ -145,11 +151,19 @@ public class ManualScanFragment extends Fragment implements
 				Toast.LENGTH_SHORT).show();
 		session.resume();
 	}
-
+	
 	@Override
-	public void onResult(Result result, Bitmap queryFrame) {
+	public void onResult(Result result, Bitmap bitmap) {
 		if (result != null) {		
-	    	MS4Plugin.scanSuccess(result);
+			JSONObject obj = new JSONObject();
+			try {
+				obj.put("format", result.getType());
+				obj.put("value", result.getValue());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			MS4Plugin.scanSuccess(obj);
 		} else {
 			MS4Plugin.scanNoResult();
 		}

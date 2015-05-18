@@ -23,18 +23,26 @@
 
 package com.moodstocks.phonegap.plugin;
 
+import java.io.ByteArrayOutputStream;
+
+import org.apache.cordova.PluginResult;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.imactivate.ms4tom.R;
+import com.imactivate.example.R;
 import com.moodstocks.android.AutoScannerSession;
 import com.moodstocks.android.MoodstocksError;
 import com.moodstocks.android.Result;
@@ -58,7 +66,7 @@ public class AutoScanFragment extends Fragment implements AutoScannerSession.Lis
 
         try {
             session = new AutoScannerSession(getActivity(), Scanner.get(), this, preview);
-            
+            //session.setResultExtras(extras)
             // Turn on or off Partial recognition -- SearchOption.SMALLTARGET works too.
             if (MS4Plugin.noPartials == true){
             	session.setSearchOptions(SearchOption.NOPARTIAL);            
@@ -128,7 +136,21 @@ public class AutoScanFragment extends Fragment implements AutoScannerSession.Lis
 
     @Override
     public void onResult(Result result) {
-    	MS4Plugin.scanSuccess(result);
+    	//ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();  
+    	//resultFrame.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+    	//byte[] byteArray = byteArrayOutputStream .toByteArray();
+    	//String encodedFrame = Base64.encodeToString(byteArray, Base64.DEFAULT);
+    	
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("format", result.getType());
+			obj.put("value", result.getValue());
+			//obj.put("recognisedFrame", encodedFrame);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+   	
+    	MS4Plugin.scanSuccess(obj);
     }
 
 }

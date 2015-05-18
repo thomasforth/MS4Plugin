@@ -28,8 +28,9 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import com.imactivate.ms4tom.MainActivity;
+import com.imactivate.example.MainActivity;
 import com.moodstocks.android.Result;
 
 import android.util.Log;
@@ -64,17 +65,18 @@ public class MS4Plugin extends CordovaPlugin {
 	
 	private static CallbackContext messageCallbackContext = null;
 	
-	public static void scanSuccess(Result result){
-		PluginResult scanResult = new PluginResult(PluginResult.Status.OK, result.getValue());
+	public static void scanSuccess(JSONObject resultObject){
+		PluginResult scanResult = new PluginResult(PluginResult.Status.OK, resultObject);
 		scanResult.setKeepCallback(true);
 		scanCallbackContext.sendPluginResult(scanResult);
+		//scanResult.setKeepCallback(true);
+		//scanCallbackContext.sendPluginResult(scanFrame);
 	}
-	
-	public static void recognisePhotoSuccess(Result result){
-		PluginResult scanResult = new PluginResult(PluginResult.Status.OK, result.getValue());
+	/*public static void recognisePhotoSuccess(JSONObject obj){
+		PluginResult scanResult = new PluginResult(PluginResult.Status.OK, obj.getValue());
 		scanResult.setKeepCallback(false);
 		recognisePhotoCallbackContext.sendPluginResult(scanResult);
-	}
+	}*/
 	
 	public static void recognisePhotoFail(){
 		PluginResult scanResult = new PluginResult(PluginResult.Status.ERROR, "No Image Found");

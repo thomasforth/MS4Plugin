@@ -1,8 +1,11 @@
-package com.imactivate.ms4tom;
+package com.imactivate.example;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -19,7 +22,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import com.imactivate.ms4tom.R;
+import com.imactivate.example.R;
 import com.moodstocks.android.Result;
 import com.moodstocks.android.Scanner;
 import com.moodstocks.android.MoodstocksError;
@@ -33,7 +36,7 @@ import com.moodstocks.phonegap.plugin.ManualScanFragment;
 public class MainActivity extends Activity implements Scanner.SyncListener{
 
     // Moodstocks API key/secret pair
-    private static final String API_KEY = "_yourKey_";
+    private static final String API_KEY = "_yourAPIKEY_";
     private static final String API_SECRET = "_yourSecret_";
     
     private boolean compatible = false;
@@ -251,7 +254,17 @@ public class MainActivity extends Activity implements Scanner.SyncListener{
 			//SearchOption.NOPARTIAL, or SearchOption.SMALLTARGET can be passed instead of SearchOption.DEFAULT
 			Result result = scanner.search(img, SearchOption.DEFAULT, Result.Extra.NONE);
 			if (result != null) {
-				MS4Plugin.recognisePhotoSuccess(result);
+				JSONObject obj = new JSONObject();
+				try {
+					obj.put("format", result.getType());
+					obj.put("value", result.getValue());
+				}
+				catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				
+				MS4Plugin.scanSuccess(obj);
 				Log.d("MainActivity", "[Local search] Result found: " + result.getValue());
 			} else {
 				MS4Plugin.recognisePhotoFail();

@@ -1,6 +1,6 @@
 # MS4Plugin
 
-A third-party Phonegap plugin that implements the Moodstocks v4 SDK for Android. It is developed by Thomas Forth at [imactivate](http://www.imactivate.com/) and tested on Phonegap v3.1, on Windows and Mac, in Eclipse. Small changes in installation procedure may be required with newer version of Phonegap but we foresee no major compatibility issues.
+A third-party Phonegap plugin that implements the Moodstocks v4 SDK for Android. It is developed by Thomas Forth at [imactivate](http://www.imactivate.com/) and tested on Phonegap v3.1, on Windows and Mac, in Eclipse. Small changes in installation procedure may be required with newer version of Phonegap but we foresee no major compatibility issues. The phonegap camera plugin requires that the Android SDK version used for development is 4.4.x or newer. Apps developed with this SDK will run on earlier version of Android including AOSP.
 
 Until I have a complete installation guide [watch this video](https://www.youtube.com/watch?v=TgIBX6r1nl4).
 
@@ -43,7 +43,7 @@ Separate tasks for scanning and the main UI have been replaced with a single tas
 A new callback system has been implemented which does not rely on the `startActivityForResult` method typical in Phonegap plugins. This is necessary because of the move from Tasks to Fragments.
 
 #### iOS Support
-For now the v4 plugin works on Android. If you’re a confident iOS developer and you’d like to team up on an iOS version of the plugin let's talk!
+We now have an iOS version in beta testing. We'll be releasing it soon.
 
 #### Copyright
 

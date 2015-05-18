@@ -16,6 +16,29 @@
 		<clobbers target="MS4Plugin" />
 	</js-module>
  
+	<!-- iOS -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="MoodstocksPlugin">
+                <param name="ios-package" value="MoodstocksPlugin" />
+            </feature>
+        </config-file>
+		
+        <!-- header & source files -->
+        <header-file src="src/ios/MS4Plugin.h" />
+        <source-file src="src/ios/MS4Plugin.m" />
+        <header-file src="src/ios/ScannerViewController.h" />
+        <source-file src="src/ios/ScannerViewController.m" />
+        <resource-file src="src/ios/ScannerViewController.xib" />
+
+        <!-- system frameworks -->
+		<framework src="CFNetwork.framework" />
+        <framework src="CoreMedia.framework" />
+        <framework src="AVFoundation.framework" />
+        <framework src="CoreVideo.framework" />
+        <framework src="QuartzCore.framework" />
+	</platform>		
+	
     <!-- android -->
     <platform name="android">
 
