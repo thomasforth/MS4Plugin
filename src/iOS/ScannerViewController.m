@@ -1,4 +1,3 @@
-//
 //  ScannerViewController.m
 //  PGNewProj
 //

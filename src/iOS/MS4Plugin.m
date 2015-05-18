@@ -1,4 +1,3 @@
-//
 //  MS4Plugin.m
 //  PGNewProj
 //
