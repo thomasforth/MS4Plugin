@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
 	id="com.moodstocks.phonegap"
-    version="1.0.0">
+    version="1.1.0">
     <name>MS4Plugin</name>
     <description>Moodstocks Phonegap Plugin</description>
     <author>imactivate</author>
@@ -19,17 +19,17 @@
 	<!-- iOS -->
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
-            <feature name="MoodstocksPlugin">
-                <param name="ios-package" value="MoodstocksPlugin" />
+            <feature name="MS4Plugin">
+                <param name="ios-package" value="MS4Plugin" />
             </feature>
         </config-file>
 		
         <!-- header & source files -->
-        <header-file src="src/ios/MS4Plugin.h" />
-        <source-file src="src/ios/MS4Plugin.m" />
-        <header-file src="src/ios/ScannerViewController.h" />
-        <source-file src="src/ios/ScannerViewController.m" />
-        <resource-file src="src/ios/ScannerViewController.xib" />
+        <header-file src="src/iOS/MS4Plugin.h" />
+        <source-file src="src/iOS/MS4Plugin.m" />
+        <header-file src="src/iOS/ScannerViewController.h" />
+        <source-file src="src/iOS/ScannerViewController.m" />
+        <resource-file src="src/iOS/ScannerViewController.xib" />
 
         <!-- system frameworks -->
 		<framework src="CFNetwork.framework" />
