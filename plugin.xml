@@ -25,11 +25,11 @@
         </config-file>
 		
         <!-- header & source files -->
-        <header-file src="src/iOS/MS4Plugin.h" />
-        <source-file src="src/iOS/MS4Plugin.m" />
-        <header-file src="src/iOS/ScannerViewController.h" />
-        <source-file src="src/iOS/ScannerViewController.m" />
-        <resource-file src="src/iOS/ScannerViewController.xib" />
+        <header-file src="src/ios/MS4Plugin.h" />
+        <source-file src="src/ios/MS4Plugin.m" />
+        <header-file src="src/ios/ScannerViewController.h" />
+        <source-file src="src/ios/ScannerViewController.m" />
+        <resource-file src="src/ios/ScannerViewController.xib" />
 
         <!-- system frameworks -->
 		<framework src="CFNetwork.framework" />
