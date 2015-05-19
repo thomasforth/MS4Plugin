@@ -48,8 +48,6 @@ ScannerViewController *scannerVC;
     // Make the webview transparent so the camera is visible below it
 	self.webView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     self.webView.opaque = NO;
-	
-	[[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
     
     CDVPluginResult* pluginResult = nil;
     
