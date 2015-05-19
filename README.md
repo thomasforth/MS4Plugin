@@ -5,7 +5,7 @@ Developed by Thomas Forth at [imactivate](http://www.imactivate.com/). Tested fo
 
 Until I have a complete installation guide [watch this video for Android installation](https://www.youtube.com/watch?v=TgIBX6r1nl4).
 
-And [watch this video for iOS installation](https://www.youtube.com/watch?v=TgIBX6r1nl4).
+And [watch this video for iOS installation](https://www.youtube.com/watch?v=ZuDFnf8S4NY).
 
 #### Installation (Android)
 Installation is via the Phonegap CLI as with the v3.7 plugin but requires **slightly different steps** later in the installation.
