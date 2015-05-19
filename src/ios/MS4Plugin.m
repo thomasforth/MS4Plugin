@@ -44,11 +44,7 @@ ScannerViewController *scannerVC;
 }
 
 - (void)openScanner:(CDVInvokedUrlCommand*)command
-{
-    // Make the webview transparent so the camera is visible below it
-	self.webView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-    self.webView.opaque = NO;
-    
+{   
     CDVPluginResult* pluginResult = nil;
     
     // open Moodstocks scanner
