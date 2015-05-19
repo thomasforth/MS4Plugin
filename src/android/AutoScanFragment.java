@@ -143,7 +143,7 @@ public class AutoScanFragment extends Fragment implements AutoScannerSession.Lis
     	
 		JSONObject obj = new JSONObject();
 		try {
-			obj.put("format", result.getType());
+			obj.put("format", result.getType() == Result.Type.IMAGE ? "Image" : "Barcode");
 			obj.put("value", result.getValue());
 			//obj.put("recognisedFrame", encodedFrame);
 		} catch (JSONException e) {

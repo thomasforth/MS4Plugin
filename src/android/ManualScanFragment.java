@@ -157,7 +157,7 @@ public class ManualScanFragment extends Fragment implements
 		if (result != null) {		
 			JSONObject obj = new JSONObject();
 			try {
-				obj.put("format", result.getType());
+				obj.put("format", result.getType() == Result.Type.IMAGE ? "Image" : "Barcode");
 				obj.put("value", result.getValue());
 			} catch (JSONException e) {
 				e.printStackTrace();
