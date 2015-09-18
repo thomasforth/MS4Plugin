@@ -37,6 +37,12 @@ Your project should now compile and install. Additionally you may want to instal
 
 In `Staging/www/` delete `index.html` and replace it with the `index.html` from the [Moodstocks v4 Phonegap Demo](https://github.com/thomasforth/MS4Plugin/). Add the content of the Demo's `img` folder to `Staging/www/img`.
 
+##### Offline Bundles
+Offline bundles are supported on both iOS and Android. A *.bundle file should be requested directly from Moodstocks. Place it in the Resources folder for iOS projects and in the Assets folder for Android projects. Bundles must match the API key in MS4Plugin.m for iOS projects and in MainActivity.java for Android projects.
+
+##### Camera issues
+On 2015/04/15 the package id of the default cordova camera plugin changed from org.apache.cordova.camera to cordova-plugin-camera. We have updated our plugin and this should cause no problem.
+
 #### Compatibility with previous version of the Moodstocks phonegap plugin
 *At the Phonegap level the API is largely unchanged from the [Moodstocks v3.7 phonegap plugin](https://github.com/Moodstocks/moodstocks-phonegap-plugin) and porting should be straightforward. 
 * The `scanSuccess` function now returns a JSON object with three properties, `format`, `value`, and `recognisedFrame`. Currently `recognisedFrame` is unimplemented.
@@ -45,9 +51,6 @@ In `Staging/www/` delete `index.html` and replace it with the `index.html` from 
 * Camera roll recognition is supported by a completely new function and demonstrated in the demo app.
 
 This release drops support for Android 2.x. Users who require this should use the [Moodstocks v3.7 phonegap plugin](https://github.com/Moodstocks/moodstocks-phonegap-plugin). Android Studio is not supported; Phonegap is the barrier to this.
-
-##### Camera issues
-On 2015/04/15 the package id of the default cordova camera plugin changed from org.apache.cordova.camera to cordova-plugin-camera. We have updated our plugin and this should cause no problem but is worth noting.
 
 #### Major architecture changes (Android)
 Separate tasks for scanning and the main UI have been replaced with a single task containing multiple fragments -- one for Manual Scanning, one for Automatic Scanning, and one for the phonegap webview. The main task contains the Moodstocks Scanner object and handles synchronisation. The phonegap webview is loaded on application launch and scanner fragments are loaded when required and destroyed when closed.
@@ -60,8 +63,6 @@ The old pattern of attaching and detaching the cordovaWebview to the scanningVie
 A new callback system has been implemented which uses NSNotificationCenter to communicate between the ScannerViewController and the cordovaWebview within the MainViewController.
 
 #### Unimplemented features
-We have not yet implemented fully-offline bundles for iOS. This is coming soon and we foresee no difficulties. If you need this *now*, please get in touch.
-
 We do not return the frames that were recognised. We have this feature running on both iOS and Android for both Manual and Auto scanner sessions but difficulties implementing the feature on iOS mean we are not making this publicly available. Specifically, returning query frames in iOS greatly slowed recognition resulting in unacceptable performance. Significant architecture changes will be required to allow the user to specify whether they want the queryFrames returned or not so this slowdown could not be avoided in the majority of cases where the user does not want the queryFrame returned. If you need this feature, please get in touch and I will be happy to work with you to make it happen.
 
 #### Copyright

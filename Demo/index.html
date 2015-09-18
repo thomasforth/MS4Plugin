@@ -231,7 +231,8 @@
     function init() {
         // instant initialisation doesn't work on iOS
         setTimeout(function() {
-            MS4Plugin.open(openSuccess, openFail, 'MS4Tom.bundle');
+            // an example of loading an offline bundle named 'MS4TOM.bundle' placed in the iOS Resources folder or the Android Assets folder. A bundle is optional.
+            MS4Plugin.open(openSuccess, openFail, 'MS4TOM.bundle');
             MS4Plugin.sync(syncSuccess, syncFail);
         }, 1000);
     }

@@ -24,6 +24,7 @@ CDVPluginResult* scanPluginResult;
 
 ScannerViewController *scannerVC;
 
+// If you are loading an offline bundle the API key must match that of the bundle!
 #define MS_API_KEY    @"ektwqaxtd9aqlr5livjl"
 #define MS_API_SECRET @"cXVVtyXufAXv7uLn"
 
@@ -44,7 +45,9 @@ ScannerViewController *scannerVC;
 }
 
 - (void)openScanner:(CDVInvokedUrlCommand*)command
-{   
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
+    
     CDVPluginResult* pluginResult = nil;
     
     // open Moodstocks scanner
@@ -52,8 +55,69 @@ ScannerViewController *scannerVC;
     _scanner = [[MSScanner alloc] init];
     [_scanner openWithPath:path key:MS_API_KEY secret:MS_API_SECRET error:nil];
     
+    
+    // code to load bundles
+    BOOL bundleLoaded = NO;
+    NSString* bundleName = [[command.arguments objectAtIndex:0] valueForKey:@"bundleName"];
+    // remove the ".bundle" from the end of the bundleName
+    if ([bundleName length] < 7) {
+        // ".bundle" is 7 characters long. If the string's shorter than that, a bundle hasn't been defined properly
+    }
+    else {
+        // trim bundle name (on Android it needs .bundle at the end, on iOS it doesn't)
+        bundleName = [bundleName substringToIndex:[bundleName length]-7];
+        
+        // only load the bundle once per version
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        if ( ![userDefaults valueForKey:@"version"] )
+        {
+            // First run. Load Bundle.
+            NSString *bundlePath = [[NSBundle mainBundle] pathForResource:bundleName ofType:@"bundle"];
+            NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+            NSError *error = nil;
+            BOOL success = [_scanner importBundle:bundle error:&error];
+            if (success == YES) {
+                // Adding version number to NSUserDefaults for first version:
+                [userDefaults setFloat:[[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] floatValue] forKey:@"version"];
+                NSLog(@"Moodstocks Bundle loaded successfully.");
+                bundleLoaded = YES;
+            }
+            else {
+                NSLog(@"Error loading Moodstocks bundle.");
+            }
+        }
+        else {
+            
+            if ([[NSUserDefaults standardUserDefaults] floatForKey:@"version"] == [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] floatValue] )
+            {
+                // Application has not been updated (same version) and the bundle has already been loaded. Don't load it again.
+                NSLog(@"Bundle not loaded. It has previously been loaded and should only be used once per install.");
+                bundleLoaded = YES;
+            }
+            else
+            {
+                // Application has been updated. It might have a new bundle, so load it again.
+                NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"MS4TOM.bundle" ofType:@"bundle"];
+                NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+                NSError *error = nil;
+                BOOL success = [_scanner importBundle:bundle error:&error];
+                if (success == YES) {
+                    // Adding version number to NSUserDefaults for first version:
+                    [userDefaults setFloat:[[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] floatValue] forKey:@"version"];
+                    NSLog(@"Bundle loaded successfully.");
+                    bundleLoaded = YES;
+                }
+                else {
+                    NSLog(@"Error loading Moodstocks bundle.");
+                }
+            }
+        }
+    }
+    
+    // return whether the scanner opened succesfully or not
     if (_scanner != nil) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:bundleLoaded ];
     }
     else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
