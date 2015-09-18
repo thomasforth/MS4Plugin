@@ -43,6 +43,9 @@ Offline bundles are supported on both iOS and Android. A *.bundle file should be
 ##### Camera issues
 On 2015/04/15 the package id of the default cordova camera plugin changed from org.apache.cordova.camera to cordova-plugin-camera. We have updated our plugin and this should cause no problem.
 
+##### iOS 9 compatibility
+As of v4.1.7 The Moodstocks SDK does not include bitcode support. The workaround is simple. http://stackoverflow.com/questions/30848208/new-warnings-in-ios9
+
 #### Compatibility with previous version of the Moodstocks phonegap plugin
 *At the Phonegap level the API is largely unchanged from the [Moodstocks v3.7 phonegap plugin](https://github.com/Moodstocks/moodstocks-phonegap-plugin) and porting should be straightforward. 
 * The `scanSuccess` function now returns a JSON object with three properties, `format`, `value`, and `recognisedFrame`. Currently `recognisedFrame` is unimplemented.
