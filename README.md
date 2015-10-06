@@ -1,11 +1,13 @@
 # MS4Plugin
 ####A third-party Phonegap plugin for iOS and Android that implements the Moodstocks v4 SDK. 
 
-Developed by Thomas Forth at [imactivate](http://www.imactivate.com/). Tested for Android with Phonegap v3.1, on Windows and Mac, in Eclipse. iOS compatibility tested with OS X Yosemite, and Phonegap 4.3.
+Developed by Thomas Forth at [imactivate](http://www.imactivate.com/). Tested for Android with Phonegap v3.6, on Windows and Mac, in Eclipse. iOS compatibility tested with OS X Yosemite, and Phonegap 4.3.
 
-Until I have a complete installation guide [watch this video for Android installation](https://www.youtube.com/watch?v=TgIBX6r1nl4).
+[Watch this video for Android installation](https://www.youtube.com/watch?v=TgIBX6r1nl4).
 
-And [watch this video for iOS installation](https://www.youtube.com/watch?v=ZuDFnf8S4NY).
+[Watch this video for iOS installation](https://www.youtube.com/watch?v=ZuDFnf8S4NY).
+
+Then check for any additional steps that have been added since recording below.
 
 #### Installation (Android)
 Installation is via the Phonegap CLI as with the v3.7 plugin but requires **slightly different steps** later in the installation.
@@ -40,11 +42,14 @@ In `Staging/www/` delete `index.html` and replace it with the `index.html` from 
 ##### Offline Bundles
 Offline bundles are supported on both iOS and Android. A *.bundle file should be requested directly from Moodstocks. Place it in the Resources folder for iOS projects and in the Assets folder for Android projects. Bundles must match the API key in MS4Plugin.m for iOS projects and in MainActivity.java for Android projects.
 
-##### Camera issues
-On 2015/04/15 the package id of the default cordova camera plugin changed from org.apache.cordova.camera to cordova-plugin-camera. We have updated our plugin and this should cause no problem.
+##### Landscape orientation
+As of 2015-10-06 the plugin works in portrait and landscape mode on both iOS and Android. Make sure that `useDeviceOrientation` is set true. On iOS you will need to enable Landscape views (Landscape Left and/or Landscape Right) in the the project properties. You’ll find this is in the General>Deployment Info>Device Orientation section.
 
 ##### iOS 9 compatibility
 As of v4.1.7 The Moodstocks SDK does not include bitcode support. The workaround is simple. http://stackoverflow.com/questions/30848208/new-warnings-in-ios9
+
+##### Camera issues
+On 2015/04/15 the package id of the default cordova camera plugin changed from org.apache.cordova.camera to cordova-plugin-camera. We have updated our plugin and this should cause no problem.
 
 #### Compatibility with previous version of the Moodstocks phonegap plugin
 *At the Phonegap level the API is largely unchanged from the [Moodstocks v3.7 phonegap plugin](https://github.com/Moodstocks/moodstocks-phonegap-plugin) and porting should be straightforward. 
@@ -66,8 +71,9 @@ The old pattern of attaching and detaching the cordovaWebview to the scanningVie
 A new callback system has been implemented which uses NSNotificationCenter to communicate between the ScannerViewController and the cordovaWebview within the MainViewController.
 
 #### Unimplemented features
-We do not return the frames that were recognised. We have this feature running on both iOS and Android for both Manual and Auto scanner sessions but difficulties implementing the feature on iOS mean we are not making this publicly available. Specifically, returning query frames in iOS greatly slowed recognition resulting in unacceptable performance. Significant architecture changes will be required to allow the user to specify whether they want the queryFrames returned or not so this slowdown could not be avoided in the majority of cases where the user does not want the queryFrame returned. If you need this feature, please get in touch and I will be happy to work with you to make it happen.
+We do not return the frames that were recognised. We have this feature running on both iOS and Android for both Manual and Auto scanner sessions but difficulties implementing the feature on iOS mean we are not making this publicly available. Specifically, returning query frames in iOS from the native code to the CordovaWebView resulted in unacceptable performance. Significant architecture changes will be required to allow the user to specify whether they want queryFrames returned or not so this slowdown could not be avoided in the majority of cases where the user does not want the queryFrame returned. If you need this feature, please get in touch and I will be happy to work with you to make it happen.
 
-#### Copyright
+#### Copyright and License
 
-Copyright (c) 2015 [Moodstocks SAS](http://www.moodstocks.com/) and [imactivate](http://www.imactivate.com/)
+Copyright (c) 2015 [Moodstocks SAS](http://www.moodstocks.com/) and [imactivate](http://www.imactivate.com/).
+License is MIT and included.
