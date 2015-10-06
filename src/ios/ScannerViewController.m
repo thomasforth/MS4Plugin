@@ -92,6 +92,68 @@ NSString *scanType;
     }
 }
 
+// Handle orientation changes
+- (void)viewWillLayoutSubviews
+{
+    [self updateInterfaceOrientation:self.interfaceOrientation];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration
+{
+    [super willAnimateRotationToInterfaceOrientation:orientation duration:duration];
+    [self updateInterfaceOrientation:orientation];
+}
+
+- (void)updateInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    AVCaptureVideoPreviewLayer *captureLayer;
+    if ([scanType  isEqual: @"auto"]) {
+        [_autoScannerSession setInterfaceOrientation:interfaceOrientation];
+        captureLayer = (AVCaptureVideoPreviewLayer *)[_autoScannerSession captureLayer];
+        captureLayer.frame = self.view.bounds;
+        // AVCapture orientation is the same as UIInterfaceOrientation
+        switch (interfaceOrientation) {
+            case UIInterfaceOrientationPortrait:
+                [[captureLayer connection] setVideoOrientation:AVCaptureVideoOrientationPortrait];
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                [[captureLayer connection] setVideoOrientation:AVCaptureVideoOrientationPortraitUpsideDown];
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+                [[captureLayer connection] setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                [[captureLayer connection] setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
+                break;
+            default:
+                break;
+        }
+    }
+    else if ([scanType  isEqual: @"manual"]) {
+        [_manualScannerSession setInterfaceOrientation:interfaceOrientation];
+        captureLayer = (AVCaptureVideoPreviewLayer *)[_manualScannerSession captureLayer];
+        captureLayer.frame = self.view.bounds;
+        // AVCapture orientation is the same as UIInterfaceOrientation
+        switch (interfaceOrientation) {
+            case UIInterfaceOrientationPortrait:
+                [[captureLayer connection] setVideoOrientation:AVCaptureVideoOrientationPortrait];
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                [[captureLayer connection] setVideoOrientation:AVCaptureVideoOrientationPortraitUpsideDown];
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+                [[captureLayer connection] setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                [[captureLayer connection] setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
 - (void)useNotificationToChangeState:(NSNotification *)scanAction
 {
     NSDictionary *dictionary = [scanAction userInfo];
