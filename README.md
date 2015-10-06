@@ -48,6 +48,9 @@ As of 2015-10-06 the plugin works in portrait and landscape mode on both iOS and
 ##### iOS 9 compatibility
 As of v4.1.7 The Moodstocks SDK does not include bitcode support. The workaround is simple. http://stackoverflow.com/questions/30848208/new-warnings-in-ios9
 
+##### Cordova 5.x compatibility
+We know of people successfully using our plugin with every 3.x and 4.x version of Cordova. Cordova 5.x introduces a large number of small bugs. We have fixed most of them, with a few left to squash. Unfortunately these fixes break compatibility with previous version of Cordova and we expect many of them to fixed within Cordova itself in future 5.x versions. For now, we recommend avoiding Cordova 5.x, and we cannot provide support for it.
+
 ##### Camera issues
 On 2015/04/15 the package id of the default cordova camera plugin changed from org.apache.cordova.camera to cordova-plugin-camera. We have updated our plugin and this should cause no problem.
 
