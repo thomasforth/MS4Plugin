@@ -41,6 +41,9 @@ NSString *scanType;
 -  (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Set camera view to fill screen on devices with larger screens
+    [[self view] setFrame:[[UIScreen mainScreen] bounds]];
+    
     // subscribe to state change messages
     [[NSNotificationCenter defaultCenter]
      addObserver:self
